@@ -13,16 +13,37 @@ Confgiure VLANs for each department.
 <img src="https://i.imgur.com/iMHVkxl.png" height="80%" width="80%" />
 
 <h2>Walk-through:</h2>
-Configurations IP addresses on PCs and cable connections between SW1 and R1. <br />
-R1(config)#int l0 <br />
-R1(config-if)#ip address 1.1.1.1 255.255.255.255 (loopback interface IP address will always be OSPF device identifier from other routers routing tables) <br />
-- Alternatively, to enable OSPF on selected interfaces run 'ip ospf 1 area 0' from interface config mode. <br />
-R1(config-if)#router ospf 1 (OSPF process ID doesn't need to match between routers) <br />
-R1(config-router)#net 0.0.0.0 255.255.255.255 area 0 (OSPF "0.0.0.0 255.255.255.255" includes all addresses) <br />
-R1(config-router)#passive-interface l0 (prevents interface from needlessly sending OSPF messages) <br />
-R1(config-router)#default-information originate (configures R1 as autonomous system boundary router) <br />
-R1(config-router)#exit <br />
-R1(config)#ip route 0.0.0.0 0.0.0.0 203.0.113.2 (default route to ISP) <br />
-<img src="https://i.imgur.com/tHeU3fH.png" height="80%" width="80%" /> <br />
+Configurations IP addresses and default gateways on PCs as well as cable connections between SW1 and R1. Configure R1 with IP addresses of the default gateways for each VLAN. <br />
+R1(config)#int g0/0 <br />
+R1(config-if)#ip address 10.0.0.62 255.255.255.192 <br />
+R1(config-if)#no shut <br />
+R1(config-if)#int g0/1 <br />
+R1(config-if)#ip address 10.0.0.126 255.255.255.192 <br />
+R1(config-if)#no shut <br />
+R1(config-if)#int g0/2 <br />
+R1(config-if)#ip address 10.0.0.190 255.255.255.192 <br />
+R1(config-if)#no shut <br />
+<img src="https://i.imgur.com/jcw1VE4.png" height="80%" width="80%" /> <br />
 <br />
 <br />
+Configure SW1 with VLANs for each department and assign interfaces for each VLAN. <br />
+SW1(config)#vlan 10  <br />
+SW1(config-vlan)#name engineering  <br />
+SW1(config-vlan)#int range f3/1, f4/1, g0/1  <br />
+SW1(config-if-range)#switchport mode access  <br />
+SW1(config-if-range)#switchport access vlan 10  <br />
+SW1(config)#vlan 20  <br />
+SW1(config-vlan)#name HR  <br />
+SW1(config-vlan)#int range f5/1, f6/1, g1/1  <br />
+SW1(config-if-range)#switchport mode access  <br />
+SW1(config-if-range)#switchport access vlan 20  <br />
+SW1(config)#vlan 30  <br />
+SW1(config-vlan)#name Sales  <br />
+SW1(config-vlan)#int range f7/1, f8/1, g2/1  <br />
+SW1(config-if-range)#switchport mode access  <br />
+SW1(config-if-range)#switchport access vlan 30  <br />
+<img src="https://i.imgur.com/COdU4E8.png" height="80%" width="80%" /> <br />
+<br />
+<br />
+Verify with tracert <br />
+<img src="https://i.imgur.com/IiT8uut.png" height="80%" width="80%" /> <br />
