@@ -69,15 +69,13 @@ SW2(config)#int g0/1-2 <br />
 SW2(config-if)#switchport mode trunk <br />
 SW2(config-if)#switchport trunk allowed vlan 10,20,30 <br />
 SW1(config-if)#switchport trunk native vlan 999 <br />
-SW2(config-if)#int range f0/1-3 <br />
-SW2(config-if-range)#int range f0/1 <br />
 SW2(config-if-range)#int f0/1 <br />
 SW2(config-if)#switchport mode access <br />
 SW2(config-if)#switchport access vlan 20 <br />
 SW2(config-if)#int range f0/2-3 <br />
 SW2(config-if-range)#switchport mode access <br />
 SW2(config-if-range)#switchport access vlan 10 <br />
-SW2(config-if-range)#vlan 30 <br />
+SW2(config)#vlan 30 <br />
 <img src="https://i.imgur.com/qdyGMr4.png" height="80%" width="80%" /> <br />
 <img src="https://i.imgur.com/7fl2yt6.png" height="80%" width="80%" /> <br />
 <img src="https://i.imgur.com/3CBKh6J.png" height="80%" width="80%" /> <br />
