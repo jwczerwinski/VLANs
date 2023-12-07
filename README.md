@@ -1,7 +1,7 @@
 # VLAN Configurations
 
 <h2>Description</h2>
-Confgiure VLANs for each department.
+Configure VLANs for each department.
 
 <h2>Environments Used </h2>
 
